@@ -8,19 +8,19 @@
 
 
 
-50.times do
-    # User.create(
-    #     username: Faker::Name.name,
-    #     password: Faker::Internet.password
-    # )
-    Post.create(
-        title: Faker::Quote.yoda, 
-        content: Faker::Lorem.paragraph(sentence_count: 5),
-        sub_id: rand(1..15),
-        author_id: rand(1..50)
-    )
+# 50.times do
+#     # User.create(
+#     #     username: Faker::Name.name,
+#     #     password: Faker::Internet.password
+#     # )
+#     Post.create(
+#         title: Faker::Quote.yoda, 
+#         content: Faker::Lorem.paragraph(sentence_count: 5),
+#         sub_id: rand(1..15),
+#         author_id: rand(1..50)
+#     )
 
-end
+# end
 
 # 15.times do 
 #     Sub.create(
@@ -28,3 +28,13 @@ end
 #         moderator_id: rand(1..10)
 #     )
 # end
+
+
+50.times do
+    Post.create(
+        title: Faker::Quote.yoda, 
+        content: Faker::Lorem.paragraph(sentence_count: 5),
+        sub_id: rand(1..15),
+        author_id: rand(1..50)
+    )
+end
