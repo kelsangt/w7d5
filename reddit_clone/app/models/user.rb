@@ -17,8 +17,12 @@ class User < ApplicationRecord
     validates :password_digest, presence: true
     validates :password, length: { minimum: 6 }, allow_nil: true
 
-    has_many :posts
-    has_many :subs
+    has_many :posts,
+        class_name: :Post,
+        dependent: :destroy
+    has_many :subs,
+        through: :posts,
+        source: :sub
     
 
     attr_reader :password
