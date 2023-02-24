@@ -23,3 +23,479 @@ Migrating to CreateUsers (20230224154440)
   [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
   [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(688274183373989625)[0m
   [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (350.3ms)[0m  [1m[35mCREATE DATABASE "reddit_clone_development" ENCODING = 'unicode'[0m
+  [1m[35m (238.8ms)[0m  [1m[35mCREATE DATABASE "reddit_clone_test" ENCODING = 'unicode'[0m
+  [1m[35m (14.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(688274183373989625)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20230224154440)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (52.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE INDEX "index_users_on_session_token" ON "users" ("session_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230224154440"]]
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-02-24 17:12:26.689511"], ["updated_at", "2023-02-24 17:12:26.689511"]]
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(688274183373989625)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (106.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "reddit_clone_test"[0m
+  [1m[35m (195.3ms)[0m  [1m[35mCREATE DATABASE "reddit_clone_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (14.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL, "password_digest" character varying NOT NULL, "session_token" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE INDEX "index_users_on_session_token" ON "users" ("session_token")[0m
+  [1m[35m (10.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20230224154440)[0m
+  [1m[35m (11.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-02-24 17:12:27.233919"], ["updated_at", "2023-02-24 17:12:27.233919"]]
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.7ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2023-02-24 17:12:27.249687"], ["key", "environment"]]
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "aff011faf3c921ad49ad710cce1235d0ec181cea"], ["created_at", "2023-02-24 17:12:27.264493"], ["updated_at", "2023-02-24 17:12:27.264493"]]
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(688274183373989625)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateSubs (20230224171621)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (16.2ms)[0m  [1m[35mCREATE TABLE "subs" ("id" bigserial primary key, "title" character varying NOT NULL, "description" text, "moderator_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_290fd73d41"
+FOREIGN KEY ("moderator_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE INDEX "index_subs_on_moderator_id" ON "subs" ("moderator_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230224171621"]]
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePosts (20230224171626)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.1ms)[0m  [1m[35mCREATE TABLE "posts" ("id" bigserial primary key, "title" character varying NOT NULL, "url" character varying, "content" text, "sub_id" bigint NOT NULL, "author_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_5bdccabcd5"
+FOREIGN KEY ("sub_id")
+  REFERENCES "subs" ("id")
+, CONSTRAINT "fk_rails_04d13ef8c7"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE INDEX "index_posts_on_sub_id" ON "posts" ("sub_id")[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE INDEX "index_posts_on_author_id" ON "posts" ("author_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230224171626"]]
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(688274183373989625)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Virgil Swift"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Virgil Swift"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:58:57.575880"], ["updated_at", "2023-02-24 18:58:57.575880"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Tama Watsica"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Tama Watsica"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:58:58.168723"], ["updated_at", "2023-02-24 18:58:58.168723"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Myles Roob"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Myles Roob"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:58:58.722422"], ["updated_at", "2023-02-24 18:58:58.722422"]]
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Romelia Dibbert"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Romelia Dibbert"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:58:59.286439"], ["updated_at", "2023-02-24 18:58:59.286439"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Elvin Sanford"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Elvin Sanford"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:58:59.926502"], ["updated_at", "2023-02-24 18:58:59.926502"]]
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "The Hon. Rubye Wintheiser"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "The Hon. Rubye Wintheiser"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:00.484362"], ["updated_at", "2023-02-24 18:59:00.484362"]]
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Sidney Stiedemann"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Sidney Stiedemann"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:00.962245"], ["updated_at", "2023-02-24 18:59:00.962245"]]
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Mose Ryan"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Mose Ryan"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:01.552679"], ["updated_at", "2023-02-24 18:59:01.552679"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Edwardo Schuster"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Edwardo Schuster"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:02.157186"], ["updated_at", "2023-02-24 18:59:02.157186"]]
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Asha Kunze IV"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Asha Kunze IV"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:02.721045"], ["updated_at", "2023-02-24 18:59:02.721045"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Elenora Huel"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Elenora Huel"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:03.482737"], ["updated_at", "2023-02-24 18:59:03.482737"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Terrell Rau"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Terrell Rau"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:04.044661"], ["updated_at", "2023-02-24 18:59:04.044661"]]
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Gussie Streich"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Gussie Streich"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:04.638137"], ["updated_at", "2023-02-24 18:59:04.638137"]]
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Viki Klein"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Viki Klein"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:05.244845"], ["updated_at", "2023-02-24 18:59:05.244845"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Marilou Douglas"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Marilou Douglas"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:05.824289"], ["updated_at", "2023-02-24 18:59:05.824289"]]
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Larry Koelpin"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Larry Koelpin"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:06.464999"], ["updated_at", "2023-02-24 18:59:06.464999"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rep. King Emard"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Rep. King Emard"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:07.046653"], ["updated_at", "2023-02-24 18:59:07.046653"]]
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Tiesha Carroll"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Tiesha Carroll"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:07.693611"], ["updated_at", "2023-02-24 18:59:07.693611"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Beverlee Abbott I"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Beverlee Abbott I"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:08.291937"], ["updated_at", "2023-02-24 18:59:08.291937"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Rep. Sharice Littel"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Rep. Sharice Littel"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:08.939161"], ["updated_at", "2023-02-24 18:59:08.939161"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Clint Toy DO"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Clint Toy DO"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:09.504412"], ["updated_at", "2023-02-24 18:59:09.504412"]]
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Edda Kunde"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Edda Kunde"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:10.388861"], ["updated_at", "2023-02-24 18:59:10.388861"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Regan Robel"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Regan Robel"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:10.988728"], ["updated_at", "2023-02-24 18:59:10.988728"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Elliott Paucek"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Elliott Paucek"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:11.603578"], ["updated_at", "2023-02-24 18:59:11.603578"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "The Hon. Dusty Little"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "The Hon. Dusty Little"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:12.192798"], ["updated_at", "2023-02-24 18:59:12.192798"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Lissa Stokes V"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Lissa Stokes V"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:12.791555"], ["updated_at", "2023-02-24 18:59:12.791555"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Amb. Katherina Von"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Amb. Katherina Von"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:13.444572"], ["updated_at", "2023-02-24 18:59:13.444572"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Lucrecia West"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Lucrecia West"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:14.015512"], ["updated_at", "2023-02-24 18:59:14.015512"]]
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Dr. Yolanda Bednar"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Dr. Yolanda Bednar"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:14.617964"], ["updated_at", "2023-02-24 18:59:14.617964"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Dane Orn III"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Dane Orn III"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:15.233609"], ["updated_at", "2023-02-24 18:59:15.233609"]]
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Bennie Bernier"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Bennie Bernier"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:15.787065"], ["updated_at", "2023-02-24 18:59:15.787065"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Shirley Haley"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Shirley Haley"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:16.371813"], ["updated_at", "2023-02-24 18:59:16.371813"]]
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Quinn Anderson DO"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Quinn Anderson DO"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:17.141590"], ["updated_at", "2023-02-24 18:59:17.141590"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Santiago Kunde"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Santiago Kunde"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:17.727862"], ["updated_at", "2023-02-24 18:59:17.727862"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Lucas Spencer"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Lucas Spencer"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:18.330906"], ["updated_at", "2023-02-24 18:59:18.330906"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Spencer Schumm"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Spencer Schumm"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:18.946159"], ["updated_at", "2023-02-24 18:59:18.946159"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Mr. Delilah Hegmann"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Mr. Delilah Hegmann"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:19.529187"], ["updated_at", "2023-02-24 18:59:19.529187"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Damien Goodwin"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Damien Goodwin"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:20.208756"], ["updated_at", "2023-02-24 18:59:20.208756"]]
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Aubrey Lynch"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Aubrey Lynch"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:20.869743"], ["updated_at", "2023-02-24 18:59:20.869743"]]
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Frankie Gusikowski"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Frankie Gusikowski"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:21.486114"], ["updated_at", "2023-02-24 18:59:21.486114"]]
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Risa Hammes"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Risa Hammes"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:22.117564"], ["updated_at", "2023-02-24 18:59:22.117564"]]
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Sterling Quitzon"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Sterling Quitzon"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:22.759550"], ["updated_at", "2023-02-24 18:59:22.759550"]]
+  [1m[36mTRANSACTION (4.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Loida Gottlieb"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Loida Gottlieb"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:23.537348"], ["updated_at", "2023-02-24 18:59:23.537348"]]
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Hortense Hessel"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Hortense Hessel"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:24.145671"], ["updated_at", "2023-02-24 18:59:24.145671"]]
+  [1m[36mTRANSACTION (4.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Frances Mayert DO"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Frances Mayert DO"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:24.798977"], ["updated_at", "2023-02-24 18:59:24.798977"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Lizzette Heathcote"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Lizzette Heathcote"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:25.431729"], ["updated_at", "2023-02-24 18:59:25.431729"]]
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Noble Lang"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Noble Lang"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:26.106945"], ["updated_at", "2023-02-24 18:59:26.106945"]]
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Johnson Larson V"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Johnson Larson V"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:26.731468"], ["updated_at", "2023-02-24 18:59:26.731468"]]
+  [1m[36mTRANSACTION (4.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Brady Barrows"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Brady Barrows"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:27.394079"], ["updated_at", "2023-02-24 18:59:27.394079"]]
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:42:in `generate_unique_session_token'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Ms. Agustin Haley"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "session_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Ms. Agustin Haley"], ["password_digest", "[FILTERED]"], ["session_token", "[FILTERED]"], ["created_at", "2023-02-24 18:59:28.021324"], ["updated_at", "2023-02-24 18:59:28.021324"]]
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
